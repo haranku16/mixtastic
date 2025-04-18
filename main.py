@@ -4,4 +4,3 @@ import streamlit as st
 
 st.title("MixTastic")
 st.write("Welcome to the MixTastic project!")
-
