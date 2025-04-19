@@ -1,5 +1,5 @@
 from scripts.eval import evaluate
-from scripts.modeling.naive.model import NaiveModel
+from scripts.modeling.naive import NaiveModel
 from scripts.types import Stems, Mix
 from scripts.util.audio_utils import pad_to_length
 from typing import List
@@ -10,7 +10,7 @@ def get_test_stems() -> List[Stems]:
     '''
     Get the stems for evaluation.
     '''
-    test_dir = 'data/musdb18hq/test'
+    test_dir = 'data/processed/test'
     stems = []
     
     for song_dir in os.listdir(test_dir):
@@ -28,7 +28,7 @@ def get_test_mixes() -> List[Mix]:
     '''
     Get the mixes for evaluation.
     '''
-    test_dir = 'data/musdb18hq/test'
+    test_dir = 'data/processed/test'
     mixes = []
     
     # Calculate target length for 10 minutes at 44.1kHz
