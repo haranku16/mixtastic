@@ -36,29 +36,86 @@ pip install -r requirements.txt
    - Visit [MUSDB18-HQ on Zenodo](https://zenodo.org/records/3338373)
    - Download the `musdb18hq.zip` file (approximately 22.7 GB)
 
-5. Extract the dataset:
+5. Extract and transform the dataset:
 ```bash
-python setup.py path/to/musdb18hq.zip
+# Extract the dataset
+python setup.py extract path/to/musdb18hq.zip
+
+# Transform the extracted data (optional)
+python setup.py transform
 ```
 
-### Setup Script Options
+### Setup Script Commands
 
-The setup script (`setup.py`) provides the following command line options:
+The setup script (`setup.py`) provides two main commands:
 
-- `zip_path` (required): Path to the MUSDB18HQ zip file
-- `-f, --force` (optional): Force overwrite existing data in the output directory
+1. `extract` - Extract the MUSDB18HQ dataset:
+   ```bash
+   python setup.py extract path/to/musdb18hq.zip [-f|--force]
+   ```
+   - `zip_path` (required): Path to the MUSDB18HQ zip file
+   - `-f, --force` (optional): Force overwrite existing data
 
-Example usage:
-```bash
-# Basic usage
-python setup.py path/to/musdb18hq.zip
+2. `transform` - Transform the extracted data:
+   ```bash
+   python setup.py transform [-f|--force]
+   ```
+   - `-f, --force` (optional): Force overwrite existing data
 
-# Force overwrite existing data
-python setup.py path/to/musdb18hq.zip --force
-```
-
-The script will extract the dataset to `data/musdb18hq/`. If the directory already contains data, it will only proceed if the `--force` flag is used.
+The script will extract the dataset to `data/musdb18hq/` and transform it to `data/processed/`. If these directories already contain data, they will only be overwritten if the `--force` flag is used.
 
 ### Notes
 - Remember to activate the virtual environment whenever you work on the project
 - To deactivate the virtual environment when you're done, simply type `deactivate` in your terminal
+
+## Data Processing
+
+### Extraction
+The extraction process:
+- Unzips the MUSDB18HQ dataset
+- Organizes the data into train/test splits
+- Creates a data/musdb18hq directory with the following structure:
+  ```
+  data/musdb18hq/
+  ├── train/
+  │   ├── Artist - Song/
+  │   │   ├── mixture.wav
+  │   │   ├── vocals.wav
+  │   │   ├── drums.wav
+  │   │   ├── bass.wav
+  │   │   └── other.wav
+  │   └── ...
+  └── test/
+      └── ... (similar structure)
+  ```
+
+### Transformation
+The transformation process applies various audio augmentations to create a more diverse training dataset. It:
+- Processes both train and test splits
+- Creates 50 augmented versions of each stem (excluding mixture.wav)
+- Applies the following augmentations with 50% probability each:
+  - Gaussian noise (SNR: 5-40 dB)
+  - Short noises from the noises/ directory
+  - Air absorption simulation
+  - Impulse response convolution
+  - Bit crushing (4-16 bits)
+  - Clipping distortion
+  - Gain adjustment (±12 dB)
+  - Gain transitions
+  - MP3 compression (32-320 kbps)
+  - Pitch shifting (±4 semitones)
+  - Polarity inversion
+  - Room simulation
+  - Time shifting
+
+The transformed data is saved in data/processed with the same structure as the input data, with augmented files named as original_name_aug{i}.wav.
+
+## Requirements
+- Python 3.8+
+- audiomentations
+- soundfile
+- tqdm
+- numpy
+
+## License
+MIT
