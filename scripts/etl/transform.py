@@ -365,7 +365,7 @@ def transform(force=False):
                             
                             # Create symbolic link for original files
                             if not output_path.exists():
-                                os.symlink(stem_file, output_path)
+                                os.symlink(stem_file.resolve(), output_path.resolve())
                                 
                         except Exception as e:
                             logging.error(f"Error creating symbolic link for original stem {stem_file}: {str(e)}")
@@ -385,7 +385,7 @@ def transform(force=False):
                                         # Create symbolic link for mixture.wav from original
                                         mixture_path = original_dir / 'mixture.wav'
                                         if not (aug_dir / 'mixture.wav').exists():
-                                            os.symlink(mixture_path, aug_dir / 'mixture.wav')
+                                            os.symlink(mixture_path.resolve(), (aug_dir / 'mixture.wav').resolve())
                                         continue
                                     
                                     # Process the audio file with augmentation
