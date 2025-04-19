@@ -1,7 +1,11 @@
+audiomentations >= 0.40.0
 auraloss >= 0.4.0
 matplotlib >= 3.10.1
-numpy >= 2.2.4
 pandas >= 2.2.3
+pyroomacoustics >= 0.1.4
 scikit-learn >= 1.6.1
 scipy >= 1.15.2
+soundfile >= 0.13.1
 streamlit >= 1.44.1
+torch >= 2.6.0
+tqdm >= 2.2.3
