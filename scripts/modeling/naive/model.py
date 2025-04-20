@@ -2,7 +2,7 @@ from scripts.modeling.model import Model
 from scripts.types import Stems, Mix
 from typing import List
 import numpy as np
-from scipy.io.wavfile import write
+from scripts.util.mix_stems import process_stems
 
 class NaiveModel(Model):
     '''
@@ -11,31 +11,31 @@ class NaiveModel(Model):
     def __init__(self):
         super().__init__()
 
-    def fit(self, X: List[Stems], y: List[Mix]):
+    def fit(self, stems: List[Stems]):
         pass
 
     def predict(self, X: List[Stems]) -> List[Mix]:
         mixes = []
         for x in X:
-            # Process each stem one at a time and sum them
-            mix = np.zeros_like(x.bass_audio)  # Initialize with zeros
+            # Collect all the audio stems
+            audio_arrays = []
             
-            # Process and add each stem, then release it from memory
-            mix += x.bass_audio
-            x._bass_audio = None  # Release memory
+            # Ensure all stems are loaded
+            audio_arrays.append(x.bass_audio)
+            audio_arrays.append(x.drums_audio)
+            audio_arrays.append(x.other_audio)
+            audio_arrays.append(x.vocals_audio)
             
-            mix += x.drums_audio
-            x._drums_audio = None  # Release memory
+            # Use process_stems from mix_stems.py to handle the mixing
+            mixed = process_stems(audio_arrays, normalize=True, normalize_factor=0.9)
             
-            mix += x.other_audio
-            x._other_audio = None  # Release memory
+            # Add to results
+            mixes.append(mixed)
             
-            mix += x.vocals_audio
-            x._vocals_audio = None  # Release memory
-            
-            # Normalize to prevent clipping
-            mix = mix / np.max(np.abs(mix))
-            
-            mixes.append(mix)
+            # Release memory
+            x._bass_audio = None
+            x._drums_audio = None
+            x._other_audio = None
+            x._vocals_audio = None
                 
         return mixes
