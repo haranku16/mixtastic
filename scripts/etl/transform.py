@@ -154,68 +154,54 @@ def add_short_noises_multi_channel(
 def create_augmentation_pipeline():
     """Create an augmentation pipeline with the specified transforms."""
     return A.Compose([
-        A.AddGaussianSNR(min_snr_db=5.0, max_snr_db=40.0, p=0.5),
+        A.AddGaussianSNR(min_snr_db=15.0, max_snr_db=40.0, p=0.5),
         A.Lambda(
             transform=add_short_noises_multi_channel,
-            p=0.5
+            min_snr_db=10.0,  # Increased minimum SNR for less noise
+            max_snr_db=30.0,
+            p=0.3  # Lower probability
         ),
         A.AirAbsorption(
             min_temperature=10.0,
             max_temperature=20.0,
-            min_humidity=30.0,
-            max_humidity=90.0,
-            min_distance=10.0,
-            max_distance=100.0,
-            p=0.5
-        ),
-        A.BitCrush(
-            min_bit_depth=4,
-            max_bit_depth=16,
-            p=0.5
+            min_humidity=40.0,
+            max_humidity=70.0,
+            min_distance=5.0,
+            max_distance=30.0,  # Reduced max distance
+            p=0.3
         ),
         A.ClippingDistortion(
-            min_percentile_threshold=0,
-            max_percentile_threshold=40,
-            p=0.5
+            min_percentile_threshold=5,
+            max_percentile_threshold=20,  # Reduced from 40 for less distortion
+            p=0.3
         ),
         A.Gain(
-            min_gain_db=-12,
-            max_gain_db=12,
-            p=0.5
+            min_gain_db=-6,  # Reduced range
+            max_gain_db=6,
+            p=0.4
         ),
         A.GainTransition(
-            min_gain_db=-12,
-            max_gain_db=12,
-            min_duration=0.1,
-            max_duration=1.0,
-            p=0.5
+            min_gain_db=-6,  # Reduced range
+            max_gain_db=6,
+            min_duration=0.3,
+            max_duration=0.8,
+            p=0.3
         ),
         A.Mp3Compression(
-            min_bitrate=32,
+            min_bitrate=128,  # Higher minimum bitrate (better quality)
             max_bitrate=320,
-            p=0.5
+            p=0.3
         ),
-        A.PitchShift(
-            min_semitones=-4,
-            max_semitones=4,
-            p=0.5
-        ),
-        A.PolarityInversion(p=0.5),
         A.RoomSimulator(
-            min_size_x=2.0,
-            max_size_x=10.0,
-            min_size_y=2.0,
-            max_size_y=10.0,
-            min_size_z=2.0,
-            max_size_z=4.0,
-            min_absorption_value=0.1,
-            max_absorption_value=0.99,
-            p=0.5
-        ),
-        A.Shift(
-            min_shift=-0.5,
-            max_shift=0.5,
-            p=0.5
+            min_size_x=3.0,
+            max_size_x=6.0,  # Less extreme room size
+            min_size_y=3.0,
+            max_size_y=6.0,
+            min_size_z=2.5,
+            max_size_z=3.5,
+            min_absorption_value=0.4,  # Higher minimum (less reverb)
+            max_absorption_value=0.9,
+            p=0.3
         )
     ])
 
@@ -363,12 +349,12 @@ def transform(force=False):
                             # Create output path
                             output_path = original_dir / stem_file.name
                             
-                            # Create symbolic link for original files
+                            # Copy original files instead of symbolic linking
                             if not output_path.exists():
-                                os.symlink(stem_file.resolve(), output_path.resolve())
+                                shutil.copy(stem_file, output_path)
                                 
                         except Exception as e:
-                            logging.error(f"Error creating symbolic link for original stem {stem_file}: {str(e)}")
+                            logging.error(f"Error copying original stem {stem_file}: {str(e)}")
                             logging.error(traceback.format_exc())
                             continue
                     
@@ -382,10 +368,11 @@ def transform(force=False):
                             for stem_file in song_dir.glob('*.wav'):
                                 try:
                                     if stem_file.name == 'mixture.wav':
-                                        # Create symbolic link for mixture.wav from original
+                                        # Copy mixture.wav from original instead of symbolic linking
                                         mixture_path = original_dir / 'mixture.wav'
-                                        if not (aug_dir / 'mixture.wav').exists():
-                                            os.symlink(mixture_path.resolve(), (aug_dir / 'mixture.wav').resolve())
+                                        aug_mixture_path = aug_dir / 'mixture.wav'
+                                        if not aug_mixture_path.exists():
+                                            shutil.copy(mixture_path, aug_mixture_path)
                                         continue
                                     
                                     # Process the audio file with augmentation

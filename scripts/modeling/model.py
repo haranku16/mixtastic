@@ -8,13 +8,12 @@ class Model:
     def __init__(self):
         pass
 
-    def fit(self, X: List[Stems], y: List[Mix]):
+    def fit(self, stems: List[Stems]):
         '''
         Fit the model to the data.
 
         Args:
             X: List[Stems] - The input stems.
-            y: List[Mix] - The target mix.
         '''
         raise NotImplementedError("Subclasses must implement this method.") 
 
