@@ -1,0 +1,24 @@
+
+Stem: drums.wav
+Applied augmentations:
+- AirAbsorption: {'parameters': {'should_apply': True, 'temperature': 10, 'humidity': 60, 'distance': 8.38213163745564}, 'are_parameters_frozen': False, 'min_temperature': 10.0, 'max_temperature': 20.0, 'min_humidity': 40.0, 'max_humidity': 70.0, 'min_distance': 5.0, 'max_distance': 30.0}
+- GainTransition: {'parameters': {'should_apply': False, 'fade_time_samples': 31028, 't0': 2714303, 'start_gain_db': 3.6162347124555154, 'end_gain_db': -0.9205823554047736}, 'are_parameters_frozen': False, 'min_gain_db': -6, 'max_gain_db': 6, 'min_duration': 0.3, 'max_duration': 0.8, 'duration_unit': 'seconds'}
+
+
+Stem: vocals.wav
+Applied augmentations:
+- Mp3Compression: {'parameters': {'should_apply': False, 'bitrate': 128}, 'are_parameters_frozen': False, 'min_bitrate': 128, 'max_bitrate': 320, 'backend': 'pydub', 'post_gain_factor': None}
+
+
+Stem: other.wav
+Applied augmentations:
+- AddGaussianSNR: {'parameters': {'should_apply': False, 'noise_std': 0.0011021545229292704}, 'are_parameters_frozen': False, 'min_snr_db': 15.0, 'max_snr_db': 40.0}
+- ClippingDistortion: {'parameters': {'should_apply': False, 'percentile_threshold': 18}, 'are_parameters_frozen': False, 'min_percentile_threshold': 5, 'max_percentile_threshold': 20}
+- GainTransition: {'parameters': {'should_apply': False, 'fade_time_samples': 31028, 't0': 2714303, 'start_gain_db': 3.6162347124555154, 'end_gain_db': -0.9205823554047736}, 'are_parameters_frozen': False, 'min_gain_db': -6, 'max_gain_db': 6, 'min_duration': 0.3, 'max_duration': 0.8, 'duration_unit': 'seconds'}
+
+
+Stem: bass.wav
+Applied augmentations:
+- Gain: {'parameters': {'should_apply': False, 'amplitude_ratio': 0.9160012525346111}, 'are_parameters_frozen': False, 'min_gain_db': -6, 'max_gain_db': 6}
+- Mp3Compression: {'parameters': {'should_apply': False, 'bitrate': 128}, 'are_parameters_frozen': False, 'min_bitrate': 128, 'max_bitrate': 320, 'backend': 'pydub', 'post_gain_factor': None}
+

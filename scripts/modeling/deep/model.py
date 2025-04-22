@@ -38,26 +38,25 @@ def get_device():
         return torch.device("cpu")
         
 # Get the device to use throughout the model
-DEVICE = get_device()
+DEVICE = torch.device("cpu") # get_device()
 print(f"Using device: {DEVICE}")
 if DEVICE.type == "mps":
     print(f"MPS device detected. CPU fallback enabled for unsupported operations.")
 
 def free_memory():
     """Aggressively free memory"""
-    print("Freeing memory...")
     # Run garbage collection
     gc.collect()
     
     # Empty torch cache based on available device
-    if torch.cuda.is_available():
+    if torch.cuda.is_available() and DEVICE.type == "cuda":
         try:
             torch.cuda.empty_cache()
         except Exception as e:
             print(f"Warning: Could not clear CUDA cache: {e}")
     
     # Empty MPS cache with error handling
-    if torch.backends.mps.is_available():
+    if torch.backends.mps.is_available() and DEVICE.type == "mps":
         try:
             # Just call empty_cache without setting watermark ratios
             torch.mps.empty_cache()
@@ -75,29 +74,6 @@ def free_memory():
                         obj.grad.data = obj.grad.data.to('cpu')
         except Exception:
             pass
-
-def get_duration_str(samples):
-    """Convert sample count to duration string"""
-    # For numpy arrays and other sequences
-    if hasattr(samples, 'shape'):
-        # Get the time dimension for different tensor shapes
-        if len(samples.shape) == 1:  # 1D array [time]
-            sample_length = samples.shape[0]
-        elif len(samples.shape) == 2:  # 2D array [batch/channel, time] or [time, channels]
-            sample_length = max(samples.shape)
-        elif len(samples.shape) == 3:  # 3D array with time typically in middle
-            sample_length = samples.shape[1]
-        elif len(samples.shape) == 4:  # 4D array with time typically 3rd dimension
-            sample_length = samples.shape[2]
-        else:
-            sample_length = samples.size if hasattr(samples, 'size') else len(samples)
-    else:
-        # Simple sequence
-        sample_length = len(samples)
-    
-    # Calculate duration in seconds and format
-    duration_sec = sample_length / SAMPLE_RATE
-    return f"{duration_sec:.2f}s ({sample_length} samples)"
 
 class StemMixDataset(Dataset):
     def __init__(self, stems_list: List[Stems]):
