@@ -258,4 +258,4 @@ MIT
 
 ## Acknowledgement
 
-This project was implemented with the assistance of Cursor AI using the Claude Sonnet 3.7 model.
+This project was implemented with the assistance of Cursor AI using the Claude 3.7 Sonnet model.
