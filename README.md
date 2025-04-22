@@ -234,7 +234,6 @@ python -m scripts.modeling.traditional.model
 - Python 3.12
 - audiomentations >= 0.40.0
 - auraloss >= 0.4.0
-- librosa >= 0.11.0
 - matplotlib >= 3.10.1
 - optuna >= 4.3.0
 - pandas >= 2.2.3
