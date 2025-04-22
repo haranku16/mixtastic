@@ -10,12 +10,14 @@ from torch.utils.data import Dataset, DataLoader, random_split
 import os
 import torchaudio
 from scripts.util.audio_utils import pad_to_length
+from scripts.util.blend import blend
 import gc
 import glob
 import random
 from torchaudio.pipelines import HDEMUCS_HIGH_MUSDB_PLUS
 import psutil
 import warnings
+from scripts.modeling.naive.model import NaiveModel
 
 # Set global memory constants
 MAX_AUDIO_DURATION_SECONDS = 30  # 30 seconds
@@ -701,7 +703,11 @@ class DeepModel(Model, pl.LightningModule):
                     else:  # Mono
                         fallback = np.zeros(MAX_SAMPLES, dtype=np.float32)
                     result_mixes.append(fallback)
-        
+        naive_model = NaiveModel()
+        naive_mixes = naive_model.predict(X)
+        for i, result_mix in enumerate(result_mixes):
+            naive_mix = pad_to_length(naive_mixes[i], MAX_SAMPLES, stereo=True)
+            result_mixes[i] = blend(result_mix, naive_mix, -6, -12)
         return result_mixes
         
     def save(self):
