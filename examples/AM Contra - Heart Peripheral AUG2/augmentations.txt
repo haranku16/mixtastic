@@ -1,0 +1,24 @@
+
+Stem: drums.wav
+Applied augmentations:
+- AddGaussianSNR: {'parameters': {'should_apply': False, 'noise_std': 0.0009065753343108391}, 'are_parameters_frozen': False, 'min_snr_db': 15.0, 'max_snr_db': 40.0}
+- AirAbsorption: {'parameters': {'should_apply': False, 'temperature': 20, 'humidity': 41, 'distance': 25.939386196077344}, 'are_parameters_frozen': False, 'min_temperature': 10.0, 'max_temperature': 20.0, 'min_humidity': 40.0, 'max_humidity': 70.0, 'min_distance': 5.0, 'max_distance': 30.0}
+
+
+Stem: vocals.wav
+Applied augmentations:
+- AirAbsorption: {'parameters': {'should_apply': False, 'temperature': 20, 'humidity': 64, 'distance': 22.058350061510573}, 'are_parameters_frozen': False, 'min_temperature': 10.0, 'max_temperature': 20.0, 'min_humidity': 40.0, 'max_humidity': 70.0, 'min_distance': 5.0, 'max_distance': 30.0}
+- Gain: {'parameters': {'should_apply': False, 'amplitude_ratio': 1.361445492679957}, 'are_parameters_frozen': False, 'min_gain_db': -6, 'max_gain_db': 6}
+
+
+Stem: other.wav
+Applied augmentations:
+- Lambda: {'parameters': {'should_apply': False}, 'are_parameters_frozen': False, 'transform': <function add_short_noises_multi_channel at 0x103302160>, 'kwargs': {'min_snr_db': 10.0, 'max_snr_db': 30.0}}
+- ClippingDistortion: {'parameters': {'should_apply': False, 'percentile_threshold': 8}, 'are_parameters_frozen': False, 'min_percentile_threshold': 5, 'max_percentile_threshold': 20}
+
+
+Stem: bass.wav
+Applied augmentations:
+- AddGaussianSNR: {'parameters': {'should_apply': True, 'noise_std': 0.0024659972444692146}, 'are_parameters_frozen': False, 'min_snr_db': 15.0, 'max_snr_db': 40.0}
+- AirAbsorption: {'parameters': {'should_apply': False, 'temperature': 10, 'humidity': 70, 'distance': 17.657764615198737}, 'are_parameters_frozen': False, 'min_temperature': 10.0, 'max_temperature': 20.0, 'min_humidity': 40.0, 'max_humidity': 70.0, 'min_distance': 5.0, 'max_distance': 30.0}
+

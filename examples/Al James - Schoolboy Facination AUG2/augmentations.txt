@@ -1,0 +1,28 @@
+
+Stem: drums.wav
+Applied augmentations:
+- ClippingDistortion: {'parameters': {'should_apply': False, 'percentile_threshold': 18}, 'are_parameters_frozen': False, 'min_percentile_threshold': 5, 'max_percentile_threshold': 20}
+- Gain: {'parameters': {'should_apply': True, 'amplitude_ratio': 1.8603509059773868}, 'are_parameters_frozen': False, 'min_gain_db': -6, 'max_gain_db': 6}
+- Mp3Compression: {'parameters': {'should_apply': False, 'bitrate': 128}, 'are_parameters_frozen': False, 'min_bitrate': 128, 'max_bitrate': 320, 'backend': 'pydub', 'post_gain_factor': None}
+- RoomSimulator: {'parameters': {'should_apply': False, 'size_x': 4.226811719534858, 'size_y': 3.492194668561145, 'size_z': 2.975867660481036, 'max_order': 1, 'absorption_coefficient': 0.4836995764199264, 'source_x': 0.9992018105269849, 'source_y': 0.6937410970886883, 'source_z': 1.831650605404223, 'mic_radius': 0.1881310324019037, 'mic_azimuth': 2.272771440884431, 'mic_elevation': 0.7275902452822542, 'mic_x': 0.8919263086567439, 'mic_y': 0.6030213837934639, 'mic_z': 1.9567712898282077}, 'are_parameters_frozen': False, 'calculation_mode': 'absorption', 'min_absorption_value': 0.4, 'max_absorption_value': 0.9, 'min_target_rt60': 0.15, 'max_target_rt60': 0.8, 'use_ray_tracing': True, 'max_order': 1, 'min_size_x': 3.0, 'min_size_y': 3.0, 'min_size_z': 2.5, 'max_size_x': 6.0, 'max_size_y': 6.0, 'max_size_z': 3.5, 'min_source_x': 0.1, 'max_source_x': 3.5, 'min_source_y': 0.1, 'max_source_y': 2.7, 'min_source_z': 1.0, 'max_source_z': 2.1, 'min_mic_distance': 0.15, 'max_mic_distance': 0.35, 'min_mic_azimuth': -3.141592653589793, 'max_mic_azimuth': 3.141592653589793, 'min_mic_elevation': -3.141592653589793, 'max_mic_elevation': 3.141592653589793, 'leave_length_unchanged': False, 'padding': 0.1, 'ray_tracing_options': {'receiver_radius': 0.5, 'n_rays': 10000, 'energy_thres': 1e-05}, 'room': <pyroomacoustics.room.Room object at 0x12e293740>}
+
+
+Stem: vocals.wav
+Applied augmentations:
+- AddGaussianSNR: {'parameters': {'should_apply': True, 'noise_std': 0.005944812528585742}, 'are_parameters_frozen': False, 'min_snr_db': 15.0, 'max_snr_db': 40.0}
+- ClippingDistortion: {'parameters': {'should_apply': True, 'percentile_threshold': 13}, 'are_parameters_frozen': False, 'min_percentile_threshold': 5, 'max_percentile_threshold': 20}
+- Gain: {'parameters': {'should_apply': False, 'amplitude_ratio': 1.8603509059773868}, 'are_parameters_frozen': False, 'min_gain_db': -6, 'max_gain_db': 6}
+
+
+Stem: other.wav
+Applied augmentations:
+- AddGaussianSNR: {'parameters': {'should_apply': True, 'noise_std': 0.006022807935263819}, 'are_parameters_frozen': False, 'min_snr_db': 15.0, 'max_snr_db': 40.0}
+- Gain: {'parameters': {'should_apply': False, 'amplitude_ratio': 1.8603509059773868}, 'are_parameters_frozen': False, 'min_gain_db': -6, 'max_gain_db': 6}
+- GainTransition: {'parameters': {'should_apply': False, 'fade_time_samples': 21401, 't0': 737923, 'start_gain_db': -5.191409449173083, 'end_gain_db': 5.63985917644905}, 'are_parameters_frozen': False, 'min_gain_db': -6, 'max_gain_db': 6, 'min_duration': 0.3, 'max_duration': 0.8, 'duration_unit': 'seconds'}
+
+
+Stem: bass.wav
+Applied augmentations:
+- ClippingDistortion: {'parameters': {'should_apply': True, 'percentile_threshold': 11}, 'are_parameters_frozen': False, 'min_percentile_threshold': 5, 'max_percentile_threshold': 20}
+- GainTransition: {'parameters': {'should_apply': False, 'fade_time_samples': 21401, 't0': 737923, 'start_gain_db': -5.191409449173083, 'end_gain_db': 5.63985917644905}, 'are_parameters_frozen': False, 'min_gain_db': -6, 'max_gain_db': 6, 'min_duration': 0.3, 'max_duration': 0.8, 'duration_unit': 'seconds'}
+

@@ -1,0 +1,30 @@
+
+Stem: drums.wav
+Applied augmentations:
+- Lambda: {'parameters': {'should_apply': False}, 'are_parameters_frozen': False, 'transform': <function add_short_noises_multi_channel at 0x103302160>, 'kwargs': {'min_snr_db': 10.0, 'max_snr_db': 30.0}}
+- ClippingDistortion: {'parameters': {'should_apply': False, 'percentile_threshold': 6}, 'are_parameters_frozen': False, 'min_percentile_threshold': 5, 'max_percentile_threshold': 20}
+
+
+Stem: vocals.wav
+Applied augmentations:
+- AddGaussianSNR: {'parameters': {'should_apply': False, 'noise_std': 0.0012419068598408989}, 'are_parameters_frozen': False, 'min_snr_db': 15.0, 'max_snr_db': 40.0}
+- Lambda: {'parameters': {'should_apply': False}, 'are_parameters_frozen': False, 'transform': <function add_short_noises_multi_channel at 0x103302160>, 'kwargs': {'min_snr_db': 10.0, 'max_snr_db': 30.0}}
+- AirAbsorption: {'parameters': {'should_apply': False, 'temperature': 20, 'humidity': 68, 'distance': 25.17969037087644}, 'are_parameters_frozen': False, 'min_temperature': 10.0, 'max_temperature': 20.0, 'min_humidity': 40.0, 'max_humidity': 70.0, 'min_distance': 5.0, 'max_distance': 30.0}
+- ClippingDistortion: {'parameters': {'should_apply': False, 'percentile_threshold': 6}, 'are_parameters_frozen': False, 'min_percentile_threshold': 5, 'max_percentile_threshold': 20}
+- Gain: {'parameters': {'should_apply': False, 'amplitude_ratio': 0.6646910315977338}, 'are_parameters_frozen': False, 'min_gain_db': -6, 'max_gain_db': 6}
+- RoomSimulator: {'parameters': {'should_apply': True, 'size_x': 4.55146900187305, 'size_y': 5.824778864406767, 'size_z': 2.715571054173533, 'max_order': 1, 'absorption_coefficient': 0.7521522621759305, 'source_x': 2.470634204249253, 'source_y': 2.280319548614728, 'source_z': 1.1899691040974123, 'mic_radius': 0.27581388039284893, 'mic_azimuth': 2.235278159305185, 'mic_elevation': 2.0797884422424326, 'mic_x': 2.5764414394537027, 'mic_y': 2.3631995666363865, 'mic_z': 1.4308197387415431}, 'are_parameters_frozen': False, 'calculation_mode': 'absorption', 'min_absorption_value': 0.4, 'max_absorption_value': 0.9, 'min_target_rt60': 0.15, 'max_target_rt60': 0.8, 'use_ray_tracing': True, 'max_order': 1, 'min_size_x': 3.0, 'min_size_y': 3.0, 'min_size_z': 2.5, 'max_size_x': 6.0, 'max_size_y': 6.0, 'max_size_z': 3.5, 'min_source_x': 0.1, 'max_source_x': 3.5, 'min_source_y': 0.1, 'max_source_y': 2.7, 'min_source_z': 1.0, 'max_source_z': 2.1, 'min_mic_distance': 0.15, 'max_mic_distance': 0.35, 'min_mic_azimuth': -3.141592653589793, 'max_mic_azimuth': 3.141592653589793, 'min_mic_elevation': -3.141592653589793, 'max_mic_elevation': 3.141592653589793, 'leave_length_unchanged': False, 'padding': 0.1, 'ray_tracing_options': {'receiver_radius': 0.5, 'n_rays': 10000, 'energy_thres': 1e-05}, 'room': <pyroomacoustics.room.Room object at 0x12e2914c0>}
+
+
+Stem: other.wav
+Applied augmentations:
+- Lambda: {'parameters': {'should_apply': True}, 'are_parameters_frozen': False, 'transform': <function add_short_noises_multi_channel at 0x103302160>, 'kwargs': {'min_snr_db': 10.0, 'max_snr_db': 30.0}}
+- ClippingDistortion: {'parameters': {'should_apply': True, 'percentile_threshold': 5}, 'are_parameters_frozen': False, 'min_percentile_threshold': 5, 'max_percentile_threshold': 20}
+- Gain: {'parameters': {'should_apply': False, 'amplitude_ratio': 0.6646910315977338}, 'are_parameters_frozen': False, 'min_gain_db': -6, 'max_gain_db': 6}
+- RoomSimulator: {'parameters': {'should_apply': False, 'size_x': 4.55146900187305, 'size_y': 5.824778864406767, 'size_z': 2.715571054173533, 'max_order': 1, 'absorption_coefficient': 0.7521522621759305, 'source_x': 2.470634204249253, 'source_y': 2.280319548614728, 'source_z': 1.1899691040974123, 'mic_radius': 0.27581388039284893, 'mic_azimuth': 2.235278159305185, 'mic_elevation': 2.0797884422424326, 'mic_x': 2.5764414394537027, 'mic_y': 2.3631995666363865, 'mic_z': 1.4308197387415431}, 'are_parameters_frozen': False, 'calculation_mode': 'absorption', 'min_absorption_value': 0.4, 'max_absorption_value': 0.9, 'min_target_rt60': 0.15, 'max_target_rt60': 0.8, 'use_ray_tracing': True, 'max_order': 1, 'min_size_x': 3.0, 'min_size_y': 3.0, 'min_size_z': 2.5, 'max_size_x': 6.0, 'max_size_y': 6.0, 'max_size_z': 3.5, 'min_source_x': 0.1, 'max_source_x': 3.5, 'min_source_y': 0.1, 'max_source_y': 2.7, 'min_source_z': 1.0, 'max_source_z': 2.1, 'min_mic_distance': 0.15, 'max_mic_distance': 0.35, 'min_mic_azimuth': -3.141592653589793, 'max_mic_azimuth': 3.141592653589793, 'min_mic_elevation': -3.141592653589793, 'max_mic_elevation': 3.141592653589793, 'leave_length_unchanged': False, 'padding': 0.1, 'ray_tracing_options': {'receiver_radius': 0.5, 'n_rays': 10000, 'energy_thres': 1e-05}, 'room': <pyroomacoustics.room.Room object at 0x12e2914c0>}
+
+
+Stem: bass.wav
+Applied augmentations:
+- AirAbsorption: {'parameters': {'should_apply': True, 'temperature': 10, 'humidity': 46, 'distance': 9.174646227960876}, 'are_parameters_frozen': False, 'min_temperature': 10.0, 'max_temperature': 20.0, 'min_humidity': 40.0, 'max_humidity': 70.0, 'min_distance': 5.0, 'max_distance': 30.0}
+- Gain: {'parameters': {'should_apply': True, 'amplitude_ratio': 1.361445492679957}, 'are_parameters_frozen': False, 'min_gain_db': -6, 'max_gain_db': 6}
+
