@@ -103,6 +103,41 @@ The script will extract the dataset to `data/musdb18hq/` and transform it to `da
 - Remember to activate the virtual environment whenever you work on the project
 - To deactivate the virtual environment when you're done, simply type `deactivate` in your terminal
 
+
+## Running Inference
+
+You can use the CLI inference tool to process and mix audio stems with different models:
+
+```bash
+python inference.py --model MODEL_TYPE --stems STEMS_PATH --output OUTPUT_PATH
+```
+
+### Parameters
+
+- `--model`: The model to use for inference. Options:
+  - `naive`: Simple mixing approach that averages all stems together (default)
+  - `traditional`: XGBoost-based model with window features
+  - Path to a DeepModel checkpoint (e.g., `models/demucs_finetuned.pt`)
+- `--stems`: Path to the directory containing the audio stems (default: `data/processed/test/Al James - Schoolboy Facination AUG1`)
+- `--output`: Path to save the output mix (default: `output/inference_output.wav`)
+
+### Examples
+
+Run inference with the naive model:
+```bash
+python inference.py --model naive --stems "data/processed/test/Al James - Schoolboy Facination AUG1" --output output/naive_mix.wav
+```
+
+Run inference with the traditional model:
+```bash
+python inference.py --model traditional --stems "data/processed/test/Al James - Schoolboy Facination AUG1" - Song --output output/traditional_mix.wav
+```
+
+Run inference with a trained deep learning model:
+```bash
+python inference.py --model models/demucs_finetuned.pt --stems "data/processed/test/Al James - Schoolboy Facination AUG1" - Song --output output/deep_mix.wav
+```
+
 ## Data Processing
 
 ### Extraction
