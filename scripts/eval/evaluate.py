@@ -1,6 +1,7 @@
 from scripts.modeling.model import Model
 from scripts.types import Stems, Mix
 from scripts.util.device import get_best_device
+from scripts.util.audio_utils import pad_to_length
 from typing import List
 import auraloss
 import torch
@@ -31,6 +32,9 @@ def evaluate(model: Model, X: List[Stems], y: List[Mix]) -> float:
     # Get the best available device
     device = get_best_device()
     
+    # Set fixed length for evaluation (30 seconds at 44.1kHz)
+    target_length = 44100 * 30
+    
     # Process predictions one at a time to save memory
     total_loss = 0.0
     num_chunks = 0
@@ -38,6 +42,10 @@ def evaluate(model: Model, X: List[Stems], y: List[Mix]) -> float:
     for i, (stems, target) in enumerate(tqdm(zip(X, y), desc="Evaluating", total=len(X))):
         # Get prediction for current stems
         pred = model.predict([stems])[0]  # Process one stem at a time
+        
+        # Pad/trim both prediction and target to exactly 30 seconds
+        pred = pad_to_length(pred, target_length, stereo=True)
+        target = pad_to_length(target, target_length, stereo=True)
         
         # Convert to tensors and ensure correct shape
         pred_tensor = torch.tensor(pred).float().to(device)
@@ -54,30 +62,11 @@ def evaluate(model: Model, X: List[Stems], y: List[Mix]) -> float:
             pred_tensor = pred_tensor.permute(1, 0).unsqueeze(0)  # (1, channels, time)
             target_tensor = target_tensor.permute(1, 0).unsqueeze(0)  # (1, channels, time)
         
-        # Process in chunks
-        chunk_size = 44100 * 60  # 1 minute chunks
-        sequence_length = pred_tensor.shape[-1]  # Get time dimension
-        
-        for j in range(0, sequence_length, chunk_size):
-            chunk_pred = pred_tensor[:, :, j:j+chunk_size]
-            chunk_target = target_tensor[:, :, j:j+chunk_size]
+        # Calculate loss directly (no need to chunk for 30 seconds)
+        loss = mrstft(pred_tensor, target_tensor)
+        total_loss += loss.item()
+        num_chunks += 1
             
-            if chunk_pred.shape[-1] < chunk_size:
-                continue  # Skip incomplete chunks
-                
-            # Skip chunks that are all silence
-            if torch.all(torch.abs(chunk_target) < 1e-6):
-                continue
-                
-            # Calculate loss for this chunk
-            loss = mrstft(chunk_pred, chunk_target)
-            total_loss += loss.item()
-            num_chunks += 1
-            
-            # Clear memory
-            del chunk_pred, chunk_target
-            clear_device_memory(device)
-        
         # Clear memory after processing each prediction
         del pred_tensor, target_tensor
         clear_device_memory(device)

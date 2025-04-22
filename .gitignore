@@ -177,4 +177,6 @@ data/
 
 .DS_Store
 
-lightning_logs/
+logs/
+output/
+models/checkpoints/
