@@ -255,3 +255,7 @@ python -m scripts.modeling.traditional.model
 
 ## License
 MIT
+
+## Acknowledgement
+
+This project was implemented with the assistance of Cursor AI using the Claude Sonnet 3.7 model.
