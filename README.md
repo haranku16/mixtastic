@@ -29,6 +29,13 @@ Attribution:
 
 These songs are covered by Creative Commons licenses (CC-BY-NC 3.0 or CC-BY-NC 4.0).
 
+## Past Approaches
+Some past approaches that inspired my deep learning approach are:
+
+1. [FxNorm-Automix](https://github.com/sony/FxNorm-automix) (simulates dry stems from wet stems for its own mixing model)
+2. [demucs](https://github.com/facebookresearch/demucs) (hybrid Wave U-Net/transformer architecture for source separation, available through torchaudio)
+3. [denoiser](https://github.com/facebookresearch/denoiser) (based on demucs, specialized for denoising audio)
+
 ## Setup
 
 ### Prerequisites
@@ -251,6 +258,12 @@ python -m scripts.modeling.traditional.model
 - tensorboard >= 2.19.0
 - transformers >= 4.51.3
 - xgboost >= 3.0.0
+
+## Presentation
+You can find the presentation for this project [here on YouTube](https://youtu.be/W47iex7USxg).
+
+## Demo Application
+You can find the Streamlit application, deployed to Google Cloud Platform, [here](https://mixtastic-518487429487.us-central1.run.app/).
 
 ## License
 MIT
